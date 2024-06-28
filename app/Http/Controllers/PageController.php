@@ -9,8 +9,17 @@ class PageController extends Controller
 {
     public function home()
     {
+        $user = auth()->user();
         return Inertia::render("Home/Home", [
             "title" => "Home",
+            "users" => [
+                "name" => $user->name,
+                "email" => $user->email,
+                "division" => $user->employee->division->division_name,
+                "sub_division" => $user->employee->sub_division->sub_division_name,
+                "branch" => $user->employee->branch->branch_name,
+                "no_telephone" => $user->employee->no_telephone,
+            ],
         ]);
     }
 

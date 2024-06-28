@@ -1,30 +1,22 @@
-import { router } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 
 function Login({ message }) {
-    const [loginError, setLoginError] = useState(false);
     const [showPasswordOld, setShowPasswordOld] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [proccess, setProccess] = useState(false);
 
     useEffect(() => {
-        if (loginError) {
+        if (!proccess) {
             console.log(message);
             setProccess(false);
+            setPassword("");
         }
-    }, [loginError]);
+    }, [proccess]);
 
     const toggleShowPasswordOld = () => {
         setShowPasswordOld(!showPasswordOld);
-    };
-
-    const handleInputEmail = ({ target }) => {
-        setEmail(target.value);
-    };
-
-    const handleInputPassword = ({ target }) => {
-        setPassword(target.value);
     };
 
     const handleLogin = (e) => {
@@ -39,10 +31,9 @@ function Login({ message }) {
             {
                 onStart: () => {
                     setProccess(true);
-                    setLoginError(false);
                 },
                 onSuccess: () => {
-                    setLoginError(true);
+                    setProccess(false);
                 },
             }
         );
@@ -50,6 +41,7 @@ function Login({ message }) {
 
     return (
         <div className="flex justify-center items-center w-full h-[calc(100vh-1px)] bg-gradient-to-r from-indigo-900 to-indigo-700 leading-none">
+            <Head title="Login" />
             <div className="w-[40%] bg-white rounded-lg shadow-lg p-10">
                 <h1 className="text-center text-3xl poppins-black -tracking-tight text-indigo-900">
                     HRIS DBKLIK
@@ -63,7 +55,7 @@ function Login({ message }) {
                             Email
                         </label>
                         <input
-                            onInput={handleInputEmail}
+                            onInput={({ target }) => setEmail(target.value)}
                             type="email"
                             id="email"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
@@ -79,7 +71,9 @@ function Login({ message }) {
                         </label>
                         <div className="relative w-full">
                             <input
-                                onInput={handleInputPassword}
+                                onInput={({ target }) =>
+                                    setPassword(target.value)
+                                }
                                 type={showPasswordOld ? "text" : "password"}
                                 id="password"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
