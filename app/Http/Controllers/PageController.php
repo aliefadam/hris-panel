@@ -57,4 +57,43 @@ class PageController extends Controller
             "title" => "Notifikasi",
         ]);
     }
+
+    public function data_rekapan()
+    {
+        return Inertia::render("Rekapan/DataRekapan", [
+            "title" => "Notifikasi",
+            "dataRekap" => [
+                [
+                    "title" => "Kehadiran",
+                    "value" => "20 Hari",
+                ],
+                [
+                    "title" => "Lembur",
+                    "value" => "20 Jam",
+                ],
+                [
+                    "title" => "Dinas Luar",
+                    "value" => "20 Hari",
+                ],
+                [
+                    "title" => "Izin Luar Cuti",
+                    "value" => "10 Hari",
+                ],
+            ],
+            "dataKinerja" => [
+                [
+                    "title" => "Kedisiplinan",
+                    "value" => "100%",
+                ],
+                [
+                    "title" => "Penilaian Tanggung Jawab",
+                    "value" => "A",
+                ],
+                [
+                    "title" => "Mendapat Apresiasi",
+                    "value" => true,
+                ],
+            ]
+        ]);
+    }
 }

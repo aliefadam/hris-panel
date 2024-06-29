@@ -16,6 +16,7 @@ Route::middleware(["auth"])->group(function () {
     Route::get("/", [PageController::class, "home"])->name("home");
     Route::get("/perizinan", [PageController::class, "perizinan"])->name("perizinan");
     Route::get("/riwayat-izin", [PageController::class, "riwayat_izin"])->name("riwayat-perizinan");
+    Route::get("/data-rekapan", [PageController::class, "data_rekapan"])->name("data-rekapan");
     Route::get("/profil-saya", [PageController::class, "profil_saya"])->name("profil-saya");
     Route::get("/ganti-password", [PageController::class, "ganti_password"])->name("ganti-password");
     Route::get("/notifikasi", [PageController::class, "notifikasi"])->name("notifikasi");

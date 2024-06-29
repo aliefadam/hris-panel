@@ -1,7 +1,7 @@
 import MainLayout from "@/Layouts/MainLayout";
 import React from "react";
 
-function Home({ title, users }) {
+function Home({ title, users, auth }) {
     const dataUser = [
         {
             title: "Email",
@@ -17,7 +17,7 @@ function Home({ title, users }) {
         },
     ];
     return (
-        <MainLayout title={title}>
+        <MainLayout user={auth.user} title={title}>
             <div className="flex gap-5">
                 <div className="w-[400px] py-10 bg-white border border-gray-200 rounded-lg shadow">
                     <div className="flex flex-col items-center">

@@ -3,9 +3,9 @@ import MainLayout from "@/Layouts/MainLayout";
 import { Head } from "@inertiajs/react";
 import React from "react";
 
-function Perizinan({ title }) {
+function Perizinan({ title, auth }) {
     return (
-        <MainLayout title={title}>
+        <MainLayout user={auth.user} title={title}>
             <div className="flex gap-5">
                 <div className="bg-white border border-gray-200 shadow rounded-lg p-5 w-1/2">
                     <FormPerizinan />

@@ -4,7 +4,7 @@ import { Head } from "@inertiajs/react";
 import { initFlowbite } from "flowbite";
 import React, { useEffect } from "react";
 
-function MainLayout({ children, title }) {
+function MainLayout({ children, title, user }) {
     useEffect(() => {
         initFlowbite();
     });
@@ -14,7 +14,7 @@ function MainLayout({ children, title }) {
             <Sidebar />
 
             <div className="ml-[300px] mt-[100px] w-[calc(98.5%-300px)] pb-10">
-                <Navbar />
+                <Navbar name={user.name} email={user.email} />
                 {children}
             </div>
         </div>

@@ -1,9 +1,9 @@
 import MainLayout from "@/Layouts/MainLayout";
 import React from "react";
 
-function Notifikasi() {
+function Notifikasi({ title, auth }) {
     return (
-        <MainLayout>
+        <MainLayout user={auth.user} title={title}>
             <div className="flex bg-white shadow border h-[calc(100vh-141px)] rounded-lg">
                 <div className="w-[400px] border-r-2">
                     <div className="p-4 border-b cursor-pointer hover:bg-gray-50 -2">

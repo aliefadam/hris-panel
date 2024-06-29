@@ -2,9 +2,9 @@ import EditFoto from "@/Components/modal/EditFoto";
 import MainLayout from "@/Layouts/MainLayout";
 import React from "react";
 
-function Profile({ title }) {
+function Profile({ title, auth }) {
     return (
-        <MainLayout title={title}>
+        <MainLayout user={auth.user} title={title}>
             <div className="flex gap-5">
                 <div className="w-[400px] py-10 bg-white border border-gray-200 rounded-lg shadow">
                     <div className="flex flex-col items-center">

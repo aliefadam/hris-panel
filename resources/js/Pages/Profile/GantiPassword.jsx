@@ -2,7 +2,7 @@ import FormPerizinan from "@/Components/FormPerizinan";
 import MainLayout from "@/Layouts/MainLayout";
 import React, { useState } from "react";
 
-function GantiPassword({ title }) {
+function GantiPassword({ title, auth }) {
     const [showPasswordOld, setShowPasswordOld] = useState(false);
     const [showPasswordNew, setShowPasswordNew] = useState(false);
     const [showConfirmationPassword, setShowConfirmationPassword] =
@@ -21,7 +21,7 @@ function GantiPassword({ title }) {
     };
 
     return (
-        <MainLayout title={title}>
+        <MainLayout user={auth.user} title={title}>
             <div className="flex gap-5">
                 <div className="bg-white border border-gray-200 shadow rounded-lg p-5 w-1/2">
                     <form action="">
@@ -87,7 +87,7 @@ function GantiPassword({ title }) {
 
                         <div className="mb-5">
                             <label
-                                htmlFor="password_baru"
+                                htmlFor="konfirmasi_password_baru"
                                 className="block mb-2 text-sm font-medium text-gray-900"
                             >
                                 Konfirmasi Password Baru
@@ -99,7 +99,7 @@ function GantiPassword({ title }) {
                                             ? "text"
                                             : "password"
                                     }
-                                    id="password_baru"
+                                    id="konfirmasi_password_baru"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     required=""
                                 />

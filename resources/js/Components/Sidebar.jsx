@@ -17,6 +17,11 @@ const SideBarLink = [
         route: "riwayat-perizinan",
         icon: "fa-regular fa-clock-rotate-left",
     },
+    {
+        name: "Data Rekapan",
+        route: "data-rekapan",
+        icon: "fa-regular fa-notebook",
+    },
 ];
 
 function Sidebar() {

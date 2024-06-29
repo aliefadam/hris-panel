@@ -2,9 +2,9 @@ import TablePerizinan from "@/Components/TablePerizinan";
 import MainLayout from "@/Layouts/MainLayout";
 import React from "react";
 
-function RiwayatIzin({ title }) {
+function RiwayatIzin({ title, auth }) {
     return (
-        <MainLayout title={title}>
+        <MainLayout user={auth.user} title={title}>
             <div className="flex justify-between items-center mb-5">
                 <div className="">
                     <div className="relative w-full">

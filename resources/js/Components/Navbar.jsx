@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
-function Navbar() {
+function Navbar({ name, email }) {
     const getDate = () => {
         const date = new Date();
         const daysString = [
@@ -36,8 +36,8 @@ function Navbar() {
 
     const getHours = () => {
         const date = new Date();
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
+        const hours = date.getHours().toString().padStart(2, "0");
+        const minutes = date.getMinutes().toString().padStart(2, "0");
         const seconds = date.getSeconds().toString().padStart(2, "0");
         return `${hours}:${minutes}:${seconds}`;
     };
@@ -82,10 +82,8 @@ function Navbar() {
                 className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-[200px]"
             >
                 <div className="px-4 py-3 text-sm text-gray-900">
-                    <div>Bonnie Green</div>
-                    <div className="font-medium truncate">
-                        name@flowbite.com
-                    </div>
+                    <div>{name}</div>
+                    <div className="font-medium truncate">{email}</div>
                 </div>
                 <ul
                     className="py-2 text-sm text-gray-700"
