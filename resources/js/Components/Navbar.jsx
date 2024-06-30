@@ -1,7 +1,21 @@
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
-function Navbar({ name, email }) {
+const getRole = (employee) => {
+    let role = "";
+    if (employee.position.position_name == "Manager") {
+        if (employee.division.division_name == "HR") {
+            role = "hr";
+        } else {
+            role = "manager";
+        }
+    } else {
+        role = employee.position.position_name;
+    }
+    return role.toLowerCase();
+};
+
+function Navbar({ name, email, employee }) {
     const getDate = () => {
         const date = new Date();
         const daysString = [
@@ -91,7 +105,7 @@ function Navbar({ name, email }) {
                 >
                     <li>
                         <Link
-                            href={route("profil-saya")}
+                            href={route(`${getRole(employee)}.profil-saya`)}
                             className="block px-4 py-2 hover:bg-gray-100"
                         >
                             Profil Saya
@@ -99,7 +113,7 @@ function Navbar({ name, email }) {
                     </li>
                     <li>
                         <Link
-                            href={route("ganti-password")}
+                            href={route(`${getRole(employee)}.ganti-password`)}
                             className="block px-4 py-2 hover:bg-gray-100"
                         >
                             Ganti Password
@@ -151,7 +165,7 @@ function Navbar({ name, email }) {
                     </a>
                 </div>
                 <Link
-                    href={route("notifikasi")}
+                    href={route(`${getRole(employee)}.notifikasi`)}
                     className="block py-3 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100"
                 >
                     <div className="inline-flex items-center">

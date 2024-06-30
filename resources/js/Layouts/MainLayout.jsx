@@ -11,10 +11,14 @@ function MainLayout({ children, title, user }) {
     return (
         <div className="w-full">
             <Head title={title} />
-            <Sidebar />
+            <Sidebar employee={user.employee} />
 
             <div className="ml-[300px] mt-[100px] w-[calc(98.5%-300px)] pb-10">
-                <Navbar name={user.name} email={user.email} />
+                <Navbar
+                    employee={user.employee}
+                    name={user.name}
+                    email={user.email}
+                />
                 {children}
             </div>
         </div>

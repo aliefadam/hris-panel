@@ -1,6 +1,39 @@
 import React from "react";
 
-function DetailPerizinan() {
+const boxTanggapan = () => {
+    return (
+        <div className="border p-4">
+            <label
+                htmlFor="message"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+                Berikan Balasan
+            </label>
+            <textarea
+                id="message"
+                rows={4}
+                className="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+                defaultValue={""}
+            />
+            <div className="mt-4 flex gap-3">
+                <button
+                    type="button"
+                    className="flex-[1] text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
+                >
+                    Setujui
+                </button>
+                <button
+                    type="button"
+                    className="flex-[1] text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
+                >
+                    Tolak
+                </button>
+            </div>
+        </div>
+    );
+};
+
+function DetailPerizinan({ role }) {
     return (
         <div
             id="default-modal"
@@ -112,6 +145,7 @@ function DetailPerizinan() {
                             </div>
                         </div>
                     </div>
+                    {role == "hr" ? boxTanggapan() : ""}
                 </div>
             </div>
         </div>

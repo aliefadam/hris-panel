@@ -1,11 +1,11 @@
-import TablePerizinan from "@/Components/TablePerizinan";
-import FilterDrawer from "@/Components/modal/FilterDrawer";
+import TableKPI from "@/Components/TableKPI";
+import FilterKPIDrawer from "@/Components/modal/FilterKPIDrawer";
 import MainLayout from "@/Layouts/MainLayout";
 import React from "react";
 
-function RiwayatIzin({ title, auth }) {
+function DaftarPenilaianKPI({ title, auth }) {
     return (
-        <MainLayout user={auth.user} title={title}>
+        <MainLayout title={title} user={auth.user}>
             <div className="flex justify-between items-center mb-5">
                 <div className="">
                     <div className="relative w-full">
@@ -16,7 +16,7 @@ function RiwayatIzin({ title, auth }) {
                             type="text"
                             id="simple-search"
                             className="bg-white border-transparent shadow text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full ps-10 p-2.5"
-                            placeholder="Cari Perizinan..."
+                            placeholder="Cari"
                         />
                     </div>
                 </div>
@@ -32,11 +32,8 @@ function RiwayatIzin({ title, auth }) {
                     Filter
                 </button>
             </div>
-            <TablePerizinan />
-            <div className="flex justify-between items-center mt-5">
-                <div className="text-sm font-medium text-gray-500">
-                    Catatan : Tekan Baris Pada Tabel Untuk Melihat Detail
-                </div>
+            <TableKPI />
+            <div className="flex justify-end items-center mt-5">
                 <nav aria-label="Page navigation example">
                     <ul className="flex items-center -space-x-p4 h-10 text-sm">
                         <li>
@@ -107,9 +104,9 @@ function RiwayatIzin({ title, auth }) {
             </div>
 
             {/* Filter Drawer */}
-            <FilterDrawer />
+            <FilterKPIDrawer />
         </MainLayout>
     );
 }
 
-export default RiwayatIzin;
+export default DaftarPenilaianKPI;

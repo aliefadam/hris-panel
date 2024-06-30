@@ -21,7 +21,18 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            return redirect("/");
+            $user = Auth::user()->employee;
+            if ($user->position->position_name == "Staff") {
+                return redirect("/staff");
+            } else if ($user->position->position_name == "Manager") {
+                if ($user->division->division_name == "HR") {
+                    return redirect("/hr");
+                } else {
+                    return redirect("/manager");
+                }
+            } else if ($user->position->position_name == "Head") {
+                return redirect("/head");
+            }
         } else {
             return redirect("/login")->with([
                 "message" => [

@@ -1,11 +1,10 @@
-import TablePerizinan from "@/Components/TablePerizinan";
-import FilterDrawer from "@/Components/modal/FilterDrawer";
+import TableDaftarKaryawan from "@/Components/TableDaftarKaryawan";
 import MainLayout from "@/Layouts/MainLayout";
 import React from "react";
 
-function RiwayatIzin({ title, auth }) {
+function DaftarKaryawan({ title, user, auth }) {
     return (
-        <MainLayout user={auth.user} title={title}>
+        <MainLayout title={title} user={auth.user}>
             <div className="flex justify-between items-center mb-5">
                 <div className="">
                     <div className="relative w-full">
@@ -16,27 +15,14 @@ function RiwayatIzin({ title, auth }) {
                             type="text"
                             id="simple-search"
                             className="bg-white border-transparent shadow text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full ps-10 p-2.5"
-                            placeholder="Cari Perizinan..."
+                            placeholder="Cari"
                         />
                     </div>
                 </div>
-                <button
-                    data-drawer-target="drawer-right-example"
-                    data-drawer-show="drawer-right-example"
-                    data-drawer-placement="right"
-                    aria-controls="drawer-right-example"
-                    type="button"
-                    className="flex items-center gap-2 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-7 py-2.5 text-center"
-                >
-                    <i className="fa-regular fa-filter"></i>
-                    Filter
-                </button>
             </div>
-            <TablePerizinan />
-            <div className="flex justify-between items-center mt-5">
-                <div className="text-sm font-medium text-gray-500">
-                    Catatan : Tekan Baris Pada Tabel Untuk Melihat Detail
-                </div>
+            <TableDaftarKaryawan user={user} />
+
+            <div className="flex justify-end items-center mt-5">
                 <nav aria-label="Page navigation example">
                     <ul className="flex items-center -space-x-p4 h-10 text-sm">
                         <li>
@@ -105,11 +91,8 @@ function RiwayatIzin({ title, auth }) {
                     </ul>
                 </nav>
             </div>
-
-            {/* Filter Drawer */}
-            <FilterDrawer />
         </MainLayout>
     );
 }
 
-export default RiwayatIzin;
+export default DaftarKaryawan;

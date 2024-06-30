@@ -2,7 +2,7 @@ import EditFoto from "@/Components/modal/EditFoto";
 import MainLayout from "@/Layouts/MainLayout";
 import React from "react";
 
-function Profile({ title, auth }) {
+function Profile({ title, profile, auth }) {
     return (
         <MainLayout user={auth.user} title={title}>
             <div className="flex gap-5">
@@ -14,87 +14,31 @@ function Profile({ title, auth }) {
                             alt="Bonnie image"
                         />
                         <h5 className="poppins-semibold text-indigo-900 mt-2 text-3xl dark:text-white">
-                            Alief Adam
+                            {auth.user.name}
                         </h5>
                         <span className="text-lg poppins-semibold text-yellow-300">
-                            IT - Developer
+                            {auth.user.employee.division.division_name}{" "}
+                            {auth.user.employee.sub_division == null
+                                ? ""
+                                : `- ${auth.user.employee.sub_division}`}
                         </span>
                     </div>
                 </div>
                 <div className="w-[calc(100%-400px)] h-fit space-y-3">
                     <div className="grid grid-cols-3 gap-3">
-                        <div className="flex-[1] flex flex-col gap-1 leading-none p-5 bg-white border border-gray-200 rounded-lg shadow">
-                            <span className="text-indigo-900 poppins-medium">
-                                Email
-                            </span>
-                            <span className="text-yellow-300 poppins-semibold">
-                                aliefadam6@gmail.com
-                            </span>
-                        </div>
-                        <div className="flex-[1] flex flex-col gap-1 leading-none p-5 bg-white border border-gray-200 rounded-lg shadow">
-                            <span className="text-indigo-900 poppins-medium">
-                                Cabang
-                            </span>
-                            <span className="text-yellow-300 poppins-semibold">
-                                Surabaya - Tenggilis
-                            </span>
-                        </div>
-                        <div className="flex-[1] flex flex-col gap-1 leading-none p-5 bg-white border border-gray-200 rounded-lg shadow">
-                            <span className="text-indigo-900 poppins-medium">
-                                No. Telepon
-                            </span>
-                            <span className="text-yellow-300 poppins-semibold">
-                                +6281234567890
-                            </span>
-                        </div>
-                        <div className="flex-[1] flex flex-col gap-1 leading-none p-5 bg-white border border-gray-200 rounded-lg shadow">
-                            <span className="text-indigo-900 poppins-medium">
-                                No. Telepon Whatsapp
-                            </span>
-                            <span className="text-yellow-300 poppins-semibold">
-                                +6281234567890
-                            </span>
-                        </div>
-                        <div className="flex-[1] flex flex-col gap-1 leading-none p-5 bg-white border border-gray-200 rounded-lg shadow">
-                            <span className="text-indigo-900 poppins-medium">
-                                Alamat
-                            </span>
-                            <span className="text-yellow-300 poppins-semibold">
-                                Jl. Surabaya No. 45
-                            </span>
-                        </div>
-                        <div className="flex-[1] flex flex-col gap-1 leading-none p-5 bg-white border border-gray-200 rounded-lg shadow">
-                            <span className="text-indigo-900 poppins-medium">
-                                Agama
-                            </span>
-                            <span className="text-yellow-300 poppins-semibold">
-                                Islam
-                            </span>
-                        </div>
-                        <div className="flex-[1] flex flex-col gap-1 leading-none p-5 bg-white border border-gray-200 rounded-lg shadow">
-                            <span className="text-indigo-900 poppins-medium">
-                                Tanggal Mulai Kontrak
-                            </span>
-                            <span className="text-yellow-300 poppins-semibold">
-                                15-01-2023
-                            </span>
-                        </div>
-                        <div className="flex-[1] flex flex-col gap-1 leading-none p-5 bg-white border border-gray-200 rounded-lg shadow">
-                            <span className="text-indigo-900 poppins-medium">
-                                Tanggal Berakhir Kontrak
-                            </span>
-                            <span className="text-yellow-300 poppins-semibold">
-                                15-01-2025
-                            </span>
-                        </div>
-                        <div className="flex-[1] flex flex-col gap-1 leading-none p-5 bg-white border border-gray-200 rounded-lg shadow">
-                            <span className="text-indigo-900 poppins-medium">
-                                Nomor Rekening
-                            </span>
-                            <span className="text-yellow-300 poppins-semibold">
-                                90909090
-                            </span>
-                        </div>
+                        {profile.map((user, index) => (
+                            <div
+                                key={index}
+                                className="flex-[1] flex flex-col gap-1.5 leading-none p-5 bg-white border border-gray-200 rounded-lg shadow"
+                            >
+                                <span className="text-indigo-900 poppins-medium">
+                                    {user.title}
+                                </span>
+                                <span className="text-yellow-300 poppins-semibold">
+                                    {user.value}
+                                </span>
+                            </div>
+                        ))}
                     </div>
                     <div className="mt-5">
                         <button

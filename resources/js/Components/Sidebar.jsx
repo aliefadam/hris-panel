@@ -1,30 +1,65 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
 
-const SideBarLink = [
-    {
-        name: "Home",
-        route: "home",
-        icon: "fa-regular fa-house",
-    },
-    {
-        name: "Perizinan",
-        route: "perizinan",
-        icon: "fa-regular fa-clipboard-check",
-    },
-    {
-        name: "Riwayat Izin",
-        route: "riwayat-perizinan",
-        icon: "fa-regular fa-clock-rotate-left",
-    },
-    {
-        name: "Data Rekapan",
-        route: "data-rekapan",
-        icon: "fa-regular fa-notebook",
-    },
-];
+const getRole = (employee) => {
+    let role = "";
+    if (employee.position.position_name == "Manager") {
+        if (employee.division.division_name == "HR") {
+            role = "hr";
+        } else {
+            role = "manager";
+        }
+    } else {
+        role = employee.position.position_name;
+    }
+    return role.toLowerCase();
+};
 
-function Sidebar() {
+function Sidebar({ employee }) {
+    const role = getRole(employee);
+    const SideBarLink = [
+        {
+            name: "Home",
+            route: `${role}.home`,
+            icon: "fa-regular fa-house",
+        },
+        {
+            name: "Perizinan",
+            route: `${role}.perizinan`,
+            icon: "fa-regular fa-clipboard-check",
+        },
+        {
+            name: "Riwayat Izin",
+            route: `${role}.riwayat-perizinan`,
+            icon: "fa-regular fa-clock-rotate-left",
+        },
+        {
+            name: "Data Rekapan",
+            route: `${role}.data-rekapan`,
+            icon: "fa-regular fa-notebook",
+        },
+    ];
+
+    if (role == "hr") {
+        SideBarLink.splice(3, 1, {
+            name: "Pengajuan Perizinan",
+            route: `${role}.pengajuan-izin`,
+            icon: "fa-regular fa-ballot-check",
+        });
+
+        SideBarLink.splice(4, 1, {
+            name: "Daftar Karyawan",
+            route: `${role}.daftar-karyawan`,
+            icon: "fa-regular fa-users",
+        });
+
+        SideBarLink.push({
+            name: "Penilaian KPI",
+            route: `${role}.penilaian-kpi`,
+            icon: "fa-regular fa-chart-line-up",
+        });
+    }
+
     return (
         <aside className="w-[280px] bg-gradient-to-r from-indigo-900 to-indigo-700 h-screen fixed top-0">
             <div className="flex p-5 gap-2 items-center justify-center">

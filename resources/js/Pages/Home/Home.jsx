@@ -30,7 +30,10 @@ function Home({ title, users, auth }) {
                             {users.name}
                         </h5>
                         <span className="text-lg poppins-semibold text-yellow-300">
-                            {users.division} - {users.sub_division}
+                            {users.division}{" "}
+                            {users.sub_division == ""
+                                ? ""
+                                : `- ${users.sub_division}`}
                         </span>
                     </div>
                 </div>

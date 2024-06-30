@@ -1,9 +1,9 @@
-import TablePerizinan from "@/Components/TablePerizinan";
+import TablePengajuanPerizinan from "@/Components/TablePengajuanPerizinan";
 import FilterDrawer from "@/Components/modal/FilterDrawer";
 import MainLayout from "@/Layouts/MainLayout";
 import React from "react";
 
-function RiwayatIzin({ title, auth }) {
+function PengajuanIzin({ title, auth }) {
     return (
         <MainLayout user={auth.user} title={title}>
             <div className="flex justify-between items-center mb-5">
@@ -32,7 +32,9 @@ function RiwayatIzin({ title, auth }) {
                     Filter
                 </button>
             </div>
-            <TablePerizinan />
+
+            <TablePengajuanPerizinan user={auth.user} />
+
             <div className="flex justify-between items-center mt-5">
                 <div className="text-sm font-medium text-gray-500">
                     Catatan : Tekan Baris Pada Tabel Untuk Melihat Detail
@@ -106,10 +108,9 @@ function RiwayatIzin({ title, auth }) {
                 </nav>
             </div>
 
-            {/* Filter Drawer */}
             <FilterDrawer />
         </MainLayout>
     );
 }
 
-export default RiwayatIzin;
+export default PengajuanIzin;
