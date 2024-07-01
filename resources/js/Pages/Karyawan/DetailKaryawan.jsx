@@ -1,5 +1,11 @@
 import TableLembur from "@/Components/TableLembur";
 import TableRiwayatMutasi from "@/Components/TableRiwayatMutasi";
+import EditCatatan from "@/Components/modal/EditCatatan";
+import EditProfile from "@/Components/modal/EditProfile";
+import PerpanjangKontrak from "@/Components/modal/PerpanjangKontrak";
+import Resign from "@/Components/modal/Resign";
+import TambahLembur from "@/Components/modal/TambahLembur";
+import TambahMutasi from "@/Components/modal/TambahMutasi";
 import MainLayout from "@/Layouts/MainLayout";
 import React from "react";
 
@@ -28,17 +34,29 @@ function DetailKaryawan({ title, user, profile, auth }) {
                     </div>
                     <div className="space-y-2">
                         <div className="flex gap-2">
-                            <button className="text-sm flex-[1] text-center bg-gradient-to-r from-neutral-700 to-neutral-500 hover:from-neutral-800 hover:to-neutral-600 text-white rounded-lg py-3.5 leading-none">
-                                <i class="fa-regular fa-note mr-2"></i>
+                            <button
+                                data-modal-target="edit-catatan-modal"
+                                data-modal-toggle="edit-catatan-modal"
+                                className="text-sm flex-[1] text-center bg-gradient-to-r from-neutral-700 to-neutral-500 hover:from-neutral-800 hover:to-neutral-600 text-white rounded-lg py-3.5 leading-none"
+                            >
+                                <i className="fa-regular fa-note mr-2"></i>
                                 Edit Catatan
                             </button>
-                            <button className="text-sm flex-[1] text-center bg-gradient-to-r from-green-700 to-green-500 hover:from-green-800 hover:to-green-600 text-white rounded-lg py-3.5 leading-none">
-                                <i class="fa-regular fa-file-contract mr-2"></i>
+                            <button
+                                data-modal-target="perpanjang-kontrak-modal"
+                                data-modal-toggle="perpanjang-kontrak-modal"
+                                className="text-sm flex-[1] text-center bg-gradient-to-r from-green-700 to-green-500 hover:from-green-800 hover:to-green-600 text-white rounded-lg py-3.5 leading-none"
+                            >
+                                <i className="fa-regular fa-file-contract mr-2"></i>
                                 Perpanjang Kontrak
                             </button>
                         </div>
-                        <button className="text-sm w-full text-center bg-gradient-to-r from-red-700 to-red-500 hover:from-red-800 hover:to-red-600 text-white rounded-lg py-3.5 leading-none">
-                            <i class="fa-sharp fa-regular fa-person-to-door mr-2"></i>
+                        <button
+                            data-modal-target="resign-modal"
+                            data-modal-toggle="resign-modal"
+                            className="text-sm w-full text-center bg-gradient-to-r from-red-700 to-red-500 hover:from-red-800 hover:to-red-600 text-white rounded-lg py-3.5 leading-none"
+                        >
+                            <i className="fa-sharp fa-regular fa-person-to-door mr-2"></i>
                             Resign
                         </button>
                     </div>
@@ -78,8 +96,8 @@ function DetailKaryawan({ title, user, profile, auth }) {
                     </div>
                     <div className="mt-5 flex justify-end">
                         <button
-                            data-modal-target="edit-foto-modal"
-                            data-modal-toggle="edit-foto-modal"
+                            data-modal-target="edit-profile-modal"
+                            data-modal-toggle="edit-profile-modal"
                             type="button"
                             className="text-white bg-indigo-700 hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
                         >
@@ -97,6 +115,24 @@ function DetailKaryawan({ title, user, profile, auth }) {
             <div className="mt-10">
                 <TableLembur />
             </div>
+
+            {/* Modal Catatan */}
+            <EditCatatan />
+
+            {/* Modal Perpanjang Kontrak */}
+            <PerpanjangKontrak />
+
+            {/* Modal Resign */}
+            <Resign />
+
+            {/* Modal Edit Profile */}
+            <EditProfile />
+
+            {/* Modal Tambah Mutasi */}
+            <TambahMutasi />
+
+            {/* Modal Tambah Lembur */}
+            <TambahLembur />
         </MainLayout>
     );
 }

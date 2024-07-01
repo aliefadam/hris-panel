@@ -3,7 +3,7 @@ import FilterDrawer from "@/Components/modal/FilterDrawer";
 import MainLayout from "@/Layouts/MainLayout";
 import React from "react";
 
-function RiwayatIzin({ title, auth }) {
+function RiwayatIzin({ title, perizinan, auth }) {
     return (
         <MainLayout user={auth.user} title={title}>
             <div className="flex justify-between items-center mb-5">
@@ -32,7 +32,7 @@ function RiwayatIzin({ title, auth }) {
                     Filter
                 </button>
             </div>
-            <TablePerizinan />
+            <TablePerizinan perizinan={perizinan} />
             <div className="flex justify-between items-center mt-5">
                 <div className="text-sm font-medium text-gray-500">
                     Catatan : Tekan Baris Pada Tabel Untuk Melihat Detail

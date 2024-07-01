@@ -9,10 +9,12 @@ function TableRiwayatMutasi() {
                     Riwayat Mutasi
                 </h1>
                 <button
+                    data-modal-target="tambah-mutasi-modal"
+                    data-modal-toggle="tambah-mutasi-modal"
                     type="button"
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
                 >
-                    <i class="fa-regular fa-plus mr-1.5"></i>
+                    <i className="fa-regular fa-plus mr-1.5"></i>
                     Tambah Mutasi
                 </button>
             </div>

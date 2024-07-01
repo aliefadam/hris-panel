@@ -8,10 +8,12 @@ function TableLembur() {
                     Riwayat Lembur
                 </h1>
                 <button
+                    data-modal-target="tambah-lembur-modal"
+                    data-modal-toggle="tambah-lembur-modal"
                     type="button"
                     className="text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
                 >
-                    <i class="fa-regular fa-plus mr-1.5"></i>
+                    <i className="fa-regular fa-plus mr-1.5"></i>
                     Tambah Lembur
                 </button>
             </div>

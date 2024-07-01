@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Foundation\Application;
@@ -25,6 +26,8 @@ Route::middleware(["auth"])->group(function () {
             Route::get("/profil-saya", [PageController::class, "profil_saya"])->name("staff.profil-saya");
             Route::get("/ganti-password", [PageController::class, "ganti_password"])->name("staff.ganti-password");
             Route::get("/notifikasi", [PageController::class, "notifikasi"])->name("staff.notifikasi");
+
+            Route::post("/ajukan-perizinan", [PerizinanController::class, "ajukan_perizinan"])->name("staff.ajukan-perizinan");
         });
     });
 

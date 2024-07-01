@@ -1,14 +1,31 @@
 import FormPerizinan from "@/Components/FormPerizinan";
 import MainLayout from "@/Layouts/MainLayout";
-import { Head } from "@inertiajs/react";
 import React from "react";
 
-function Perizinan({ title, auth }) {
+function Perizinan({ title, auth, message }) {
+    if (message) {
+        console.log(message);
+    }
+
+    const getRole = (employee) => {
+        let role = "";
+        if (employee.position.position_name == "Manager") {
+            if (employee.division.division_name == "HR") {
+                role = "hr";
+            } else {
+                role = "manager";
+            }
+        } else {
+            role = employee.position.position_name;
+        }
+        return role.toLowerCase();
+    };
+
     return (
         <MainLayout user={auth.user} title={title}>
             <div className="flex gap-5">
                 <div className="bg-white border border-gray-200 shadow rounded-lg p-5 w-1/2">
-                    <FormPerizinan />
+                    <FormPerizinan role={getRole(auth.user.employee)} />
                 </div>
                 <div className="w-1/2 space-y-3">
                     <div className="grid grid-cols-3 gap-3">

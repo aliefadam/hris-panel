@@ -1,39 +1,72 @@
 import React from "react";
 
-const boxTanggapan = () => {
-    return (
-        <div className="border p-4">
-            <label
-                htmlFor="message"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-                Berikan Balasan
-            </label>
-            <textarea
-                id="message"
-                rows={4}
-                className="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
-                defaultValue={""}
-            />
-            <div className="mt-4 flex gap-3">
-                <button
-                    type="button"
-                    className="flex-[1] text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
-                >
-                    Setujui
-                </button>
-                <button
-                    type="button"
-                    className="flex-[1] text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
-                >
-                    Tolak
-                </button>
-            </div>
-        </div>
-    );
-};
+function DetailPerizinan({ role, detail, generateStatus }) {
+    if (!detail) {
+        detail = {
+            nama: "",
+            jenis_izin: "",
+            tanggal_izin: "",
+            catatan: "",
+            diajukan_pada: "",
+            file_pendukung: "",
+            status: "",
+            feedback: "",
+        };
+    }
 
-function DetailPerizinan({ role }) {
+    const boxTanggapan = () => {
+        return (
+            <div className="border p-4">
+                <label
+                    htmlFor="message"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                    Berikan Balasan
+                </label>
+                <textarea
+                    id="message"
+                    rows={4}
+                    className="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+                    defaultValue={""}
+                />
+                <div className="mt-4 flex gap-3">
+                    <button
+                        type="button"
+                        className="flex-[1] text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
+                    >
+                        Setujui
+                    </button>
+                    <button
+                        type="button"
+                        className="flex-[1] text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
+                    >
+                        Tolak
+                    </button>
+                </div>
+            </div>
+        );
+    };
+
+    const showFilePendukung = (file) => {
+        if (file) {
+            return (
+                <span className="poppins-medium text-lg">
+                    {file}{" "}
+                    <i
+                        onClick={() => openFile(file)}
+                        className="fa-regular fa-download ml-2 text-green-700 cursor-pointer"
+                    ></i>
+                </span>
+            );
+        } else {
+            return <span className="poppins-medium text-lg">-</span>;
+        }
+    };
+
+    const openFile = (file) => {
+        window.open("/storage/uploads/perizinan/" + file, "_blank");
+    };
+
     return (
         <div
             id="default-modal"
@@ -80,31 +113,34 @@ function DetailPerizinan({ role }) {
                                     Nama
                                 </h1>
                                 <span className="poppins-medium text-lg">
-                                    Alief Adam
+                                    {detail.nama}
                                 </span>
                             </div>
                             <div className="">
                                 <h1 className="text-sm text-indigo-900">
                                     Jenis Izin
                                 </h1>
-                                <span className="poppins-medium text-lg">
-                                    Sakit
+                                <span className="poppins-medium text-lg capitalize">
+                                    {detail.jenis_izin}
                                 </span>
                             </div>
                             <div className="">
                                 <h1 className="text-sm text-indigo-900">
                                     Tanggal Izin
                                 </h1>
-                                <span className="poppins-medium text-lg">
-                                    12 Juni 2024 - 13 Juni 2024
-                                </span>
+                                <span
+                                    className="poppins-medium text-lg"
+                                    dangerouslySetInnerHTML={{
+                                        __html: detail.tanggal_izin,
+                                    }}
+                                ></span>
                             </div>
                             <div className="">
                                 <h1 className="text-sm text-indigo-900">
                                     Catatan
                                 </h1>
                                 <span className="poppins-medium text-lg">
-                                    Demam
+                                    {detail.catatan}
                                 </span>
                             </div>
                         </div>
@@ -113,26 +149,25 @@ function DetailPerizinan({ role }) {
                                 <h1 className="text-sm text-indigo-900">
                                     Diajukan Pada
                                 </h1>
-                                <span className="poppins-medium text-lg">
-                                    12 Juni 2024
+                                <span
+                                    className="poppins-medium text-lg"
+                                    target="_blank"
+                                >
+                                    {detail.diajukan_pada}
                                 </span>
                             </div>
                             <div className="">
                                 <h1 className="text-sm text-indigo-900">
                                     File Pendukung
                                 </h1>
-                                <span className="underline cursor-pointer poppins-medium text-lg">
-                                    abc.pdf
-                                </span>
+                                {showFilePendukung(detail.file_pendukung)}
                             </div>
                             <div className="">
                                 <h1 className="text-sm text-indigo-900">
                                     Status
                                 </h1>
                                 <span className="poppins-medium text-lg">
-                                    <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">
-                                        Disetujui
-                                    </span>
+                                    {generateStatus(detail.status)}
                                 </span>
                             </div>
                             <div className="">
@@ -140,7 +175,7 @@ function DetailPerizinan({ role }) {
                                     Feedback/Balasan
                                 </h1>
                                 <span className="poppins-medium text-lg">
-                                    -
+                                    {detail.feedback ?? "-"}
                                 </span>
                             </div>
                         </div>

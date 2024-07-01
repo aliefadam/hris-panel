@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Perizinan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -39,8 +41,25 @@ class PageController extends Controller
 
     public function riwayat_izin()
     {
+        $perizinan = auth()->user()->employee->perizinan()->orderBy("id", "DESC")->get();
+        $perizinanFormatted = [];
+        foreach ($perizinan as $p) {
+            $tanggal_mulai = Carbon::parse($p->tanggal_mulai)->format("d-m-Y");
+            $tanggal_akhir = Carbon::parse($p->tanggal_akhir)->format("d-m-Y");
+            $perizinanFormatted[] = [
+                "nama" => User::find($p->employee_id)->name,
+                "jenis_izin" => $p->jenis_izin,
+                "tanggal_izin" => "{$tanggal_mulai} <span class='poppins-medium italic'>s/d</span> {$tanggal_akhir}",
+                "catatan" => $p->catatan,
+                "diajukan_pada" => $p->created_at->translatedFormat("l, d F Y - H:i:s"),
+                "file_pendukung" => $p->file_pendukung != null ? explode("perizinan/", $p->file_pendukung)[1] : null,
+                "status" => $p->status,
+                "feedback" => $p->feedback,
+            ];
+        }
         return Inertia::render("Perizinan/RiwayatIzin", [
             "title" => "Riwayat Izin",
+            "perizinan" => $perizinanFormatted,
         ]);
     }
 

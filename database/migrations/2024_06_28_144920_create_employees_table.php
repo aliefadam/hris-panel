@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date("tanggal_mulai_kontrak");
             $table->date("tanggal_akhir_kontrak");
             $table->string("nomor_rekening");
+            $table->string("foto")->nullable();
             $table->timestamps();
         });
     }

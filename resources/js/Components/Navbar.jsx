@@ -28,7 +28,7 @@ function Navbar({ name, email, employee }) {
             "Sabtu",
         ];
         const dayName = daysString[date.getDay()];
-        const day = date.getDate();
+        const day = date.getDate().toString().padStart(2, "0");
         const monthString = [
             "Januari",
             "Februari",

@@ -31,4 +31,9 @@ class Employee extends Model
     {
         return $this->belongsTo(SubDivision::class);
     }
+
+    public function perizinan()
+    {
+        return $this->hasMany(Perizinan::class);
+    }
 }

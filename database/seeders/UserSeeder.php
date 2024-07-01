@@ -22,13 +22,13 @@ class UserSeeder extends Seeder
         User::create([
             "employee_id" => 2,
             "name" => "Deasy Mei",
-            "email" => "deasymei@gmail.com",
+            "email" => "aliefadam21@gmail.com",
             "password" => bcrypt("123"),
         ]);
         User::create([
             "employee_id" => 3,
             "name" => "Deny",
-            "email" => "deny@gmail.com",
+            "email" => "codemateinformatika@gmail.com",
             "password" => bcrypt("123"),
         ]);
     }
