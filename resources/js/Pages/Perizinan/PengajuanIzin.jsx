@@ -3,7 +3,7 @@ import FilterDrawer from "@/Components/modal/FilterDrawer";
 import MainLayout from "@/Layouts/MainLayout";
 import React from "react";
 
-function PengajuanIzin({ title, auth }) {
+function PengajuanIzin({ title, perizinan, auth }) {
     return (
         <MainLayout user={auth.user} title={title}>
             <div className="flex justify-between items-center mb-5">
@@ -33,7 +33,7 @@ function PengajuanIzin({ title, auth }) {
                 </button>
             </div>
 
-            <TablePengajuanPerizinan user={auth.user} />
+            <TablePengajuanPerizinan perizinan={perizinan} user={auth.user} />
 
             <div className="flex justify-between items-center mt-5">
                 <div className="text-sm font-medium text-gray-500">

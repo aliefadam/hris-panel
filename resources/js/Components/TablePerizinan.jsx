@@ -2,22 +2,22 @@ import React, { useState } from "react";
 import DetailPerizinan from "./modal/DetailPerizinan";
 
 const generateStatus = (status) => {
-    if (status == "pending") {
+    if (status.includes("pending")) {
         return (
             <span className="capitalize bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">
                 Pending
             </span>
         );
-    } else if (status == "disetujui") {
+    } else if (status.includes("Disetujui")) {
         return (
             <span className="capitalize bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">
-                Disetujui
+                {status}
             </span>
         );
     } else {
         return (
             <span className="capitalize bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">
-                Ditolak
+                {status}
             </span>
         );
     }

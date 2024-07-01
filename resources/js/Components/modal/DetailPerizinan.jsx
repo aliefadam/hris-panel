@@ -1,8 +1,15 @@
-import React from "react";
+import { router } from "@inertiajs/react";
+import React, { useState } from "react";
 
-function DetailPerizinan({ role, detail, generateStatus }) {
+function DetailPerizinan({ role, detail, generateStatus, getRole, employee }) {
+    const [loadingTerima, setLoadingTerima] = useState(false);
+    const [loadingTolak, setLoadingTolak] = useState(false);
+
+    const [loading, setLoading] = useState(false);
+
     if (!detail) {
         detail = {
+            id: 0,
             nama: "",
             jenis_izin: "",
             tanggal_izin: "",
@@ -14,36 +21,84 @@ function DetailPerizinan({ role, detail, generateStatus }) {
         };
     }
 
-    const boxTanggapan = () => {
+    let jawabanValue = "";
+
+    const handleClick = (value, e) => {
+        jawabanValue = value;
+    };
+
+    const balas = async (e) => {
+        e.preventDefault();
+        const formData = {
+            perizinan_id: e.target.elements.perizinan_id.value,
+            feedback: e.target.elements.feedback.value,
+            jawaban: jawabanValue,
+        };
+
+        router.post(route(`${getRole(employee)}.balas-perizinan`), formData, {
+            onStart: () => {
+                setLoading(true);
+            },
+            onSuccess: () => {
+                setLoading(false);
+            },
+        });
+    };
+
+    const boxTanggapan = (id) => {
         return (
-            <div className="border p-4">
-                <label
-                    htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                    Berikan Balasan
-                </label>
-                <textarea
-                    id="message"
-                    rows={4}
-                    className="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
-                    defaultValue={""}
-                />
-                <div className="mt-4 flex gap-3">
-                    <button
-                        type="button"
-                        className="flex-[1] text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
+            <form action="" onSubmit={balas}>
+                <input type="hidden" name="perizinan_id" value={id} />
+                <div className="border p-4">
+                    <label
+                        htmlFor="message"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                        Setujui
-                    </button>
-                    <button
-                        type="button"
-                        className="flex-[1] text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center"
-                    >
-                        Tolak
-                    </button>
+                        Berikan Balasan
+                    </label>
+                    <textarea
+                        id="message"
+                        rows={4}
+                        name="feedback"
+                        className="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+                        defaultValue={""}
+                    />
+                    <div className="mt-4 flex justify-center gap-3">
+                        {loading ? (
+                            <span className="poppins-semibold italic py-1.5 text-sm text-gray-500">
+                                Sedang Diproses, Mohon Tunggu ...
+                            </span>
+                        ) : (
+                            <>
+                                <button
+                                    disabled={loadingTerima}
+                                    type="submit"
+                                    className={`flex-[1] text-white ${
+                                        loadingTerima
+                                            ? "bg-green-400 cursor-not-allowed"
+                                            : "bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300"
+                                    }  font-medium rounded-full text-sm px-5 py-2.5 text-center`}
+                                    onClick={(e) => handleClick("terima", e)}
+                                >
+                                    {loadingTerima ? "Loading..." : "Terima"}
+                                </button>
+                                <button
+                                    disabled={loadingTolak}
+                                    type="submit"
+                                    className={`flex-[1] text-white ${
+                                        loadingTolak
+                                            ? "bg-red-400 cursor-not-allowed"
+                                            : "bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font"
+                                    } -medium rounded-full text-sm px-5 py-2.5 text-center`}
+                                    onClick={(e) => handleClick("tolak", e)}
+                                >
+                                    {loadingTolak ? "Loading..." : "Tolak"}
+                                </button>
+                            </>
+                        )}
+                    </div>
                 </div>
-            </div>
+            </form>
         );
     };
 
@@ -72,7 +127,9 @@ function DetailPerizinan({ role, detail, generateStatus }) {
             id="default-modal"
             tabIndex={-1}
             aria-hidden="true"
-            className="animate__animated animate__fadeInDown hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+            className={`animate__animated animate__fadeInDown ${
+                loading ? "flex" : "hidden"
+            } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}
         >
             <div className="relative p-4 w-1/2 max-h-full">
                 {/* Modal content */}
@@ -180,7 +237,11 @@ function DetailPerizinan({ role, detail, generateStatus }) {
                             </div>
                         </div>
                     </div>
-                    {role == "hr" ? boxTanggapan() : ""}
+                    {role == "hr" || role == "head"
+                        ? detail.status == "pending"
+                            ? boxTanggapan(detail.id)
+                            : ""
+                        : ""}
                 </div>
             </div>
         </div>

@@ -65,8 +65,35 @@ class PageController extends Controller
 
     public function pengajuan_izin()
     {
+        $role = get_role(auth()->user()->id);
+        if ($role == "hr") {
+            $perizinan = Perizinan::orderBy("id", "DESC")->get();
+        } else {
+            $perizinan = Perizinan::whereHas("employee", function ($query) {
+                $query->where("division_id", auth()->user()->employee->division_id);
+            })->orderBy("id", "DESC")->get();
+        }
+
+        $perizinanFormatted = [];
+        foreach ($perizinan as $p) {
+            $tanggal_mulai = Carbon::parse($p->tanggal_mulai)->format("d-m-Y");
+            $tanggal_akhir = Carbon::parse($p->tanggal_akhir)->format("d-m-Y");
+            $perizinanFormatted[] = [
+                "id" => $p->id,
+                "nama" => User::find($p->employee_id)->name,
+                "divisi" => generate_division_and_sub_division($p->employee_id),
+                "jenis_izin" => $p->jenis_izin,
+                "tanggal_izin" => "{$tanggal_mulai} <span class='poppins-medium italic'>s/d</span> {$tanggal_akhir}",
+                "catatan" => $p->catatan,
+                "diajukan_pada" => $p->created_at->translatedFormat("l, d F Y - H:i:s"),
+                "file_pendukung" => $p->file_pendukung != null ? explode("perizinan/", $p->file_pendukung)[1] : null,
+                "status" => $p->status,
+                "feedback" => $p->feedback,
+            ];
+        }
         return Inertia::render("Perizinan/PengajuanIzin", [
             "title" => "Pengajuan Izin",
+            "perizinan" => $perizinanFormatted,
         ]);
     }
 

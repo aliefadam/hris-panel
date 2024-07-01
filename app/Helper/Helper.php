@@ -22,3 +22,22 @@ if (!function_exists("generate_division_and_sub_division")) {
         }
     }
 }
+
+if (!function_exists("get_role")) {
+    function get_role($user_id)
+    {
+        $employee = User::find($user_id)->employee;
+        if ($employee->position->position_name == "Staff") {
+            $role = "staff";
+        } else if ($employee->position->position_name == "Manager") {
+            if ($employee->division->division_name == "HR") {
+                $role = "hr";
+            } else {
+                return redirect("/manager");
+            }
+        } else if ($employee->position->position_name == "Head") {
+            $role = "head";
+        }
+        return $role;
+    }
+}

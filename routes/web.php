@@ -43,6 +43,9 @@ Route::middleware(["auth"])->group(function () {
             Route::get("/profil-saya", [PageController::class, "profil_saya"])->name("hr.profil-saya");
             Route::get("/ganti-password", [PageController::class, "ganti_password"])->name("hr.ganti-password");
             Route::get("/notifikasi", [PageController::class, "notifikasi"])->name("hr.notifikasi");
+
+            Route::post("/ajukan-perizinan", [PerizinanController::class, "ajukan_perizinan"])->name("hr.ajukan-perizinan");
+            Route::post("/balas-perizinan", [PerizinanController::class, "balas_perizinan"])->name("hr.balas-perizinan");
         });
     });
 

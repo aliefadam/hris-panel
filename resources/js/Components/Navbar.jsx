@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 const getRole = (employee) => {
@@ -16,6 +16,7 @@ const getRole = (employee) => {
 };
 
 function Navbar({ name, email, employee }) {
+    const notification = usePage().props.notifikasi;
     const getDate = () => {
         const date = new Date();
         const daysString = [
@@ -141,28 +142,34 @@ function Navbar({ name, email, employee }) {
                     Notifikasi
                 </div>
                 <div className="divide-y divide-gray-100">
-                    <a href="#" className="flex px-4 py-3 hover:bg-gray-100">
-                        <div className="flex-shrink-0">
-                            <img
-                                className="rounded-full w-10 h-10 shadow-lg"
-                                src="/imgs/no-picture.png"
-                                alt="Jese image"
-                            />
-                        </div>
-                        <div className="w-full ps-3">
-                            <div className="text-gray-500 text-sm mb-1">
-                                <span className="font-semibold text-gray-900">
-                                    Deasy Mei - HRD
-                                </span>
+                    {notification.map((notif, i) => (
+                        <Link
+                            key={i}
+                            href={route(`${getRole(employee)}.notifikasi`)}
+                            className="flex px-4 py-3 hover:bg-gray-100"
+                        >
+                            <div className="flex-shrink-0">
+                                <img
+                                    className="rounded-full w-10 h-10 shadow-lg"
+                                    src="/imgs/no-picture.png"
+                                    alt="Jese image"
+                                />
                             </div>
-                            <div className="text-sm text-gray-500 mb-1.5">
-                                Pengajuan Izin telah disetujui
+                            <div className="w-full ps-3">
+                                <div className="text-gray-500 text-sm mb-1">
+                                    <span className="font-semibold text-gray-900">
+                                        {notif.nama} - {notif.divisi}
+                                    </span>
+                                </div>
+                                <div className="text-sm text-gray-500 mb-1.5">
+                                    {notif.title}
+                                </div>
+                                <div className="text-xs text-indigo-900 poppins-semibold">
+                                    {notif.waktu}
+                                </div>
                             </div>
-                            <div className="text-xs text-indigo-900 poppins-semibold">
-                                10 minutes ago
-                            </div>
-                        </div>
-                    </a>
+                        </Link>
+                    ))}
                 </div>
                 <Link
                     href={route(`${getRole(employee)}.notifikasi`)}

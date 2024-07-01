@@ -9,7 +9,7 @@ class Employee extends Model
 {
     use HasFactory;
     protected $guarded = ["id"];
-    protected $with = ["branch", "position", "division", "sub_division"];
+    protected $with = ["branch", "position", "division", "sub_division", "notification", "perizinan"];
 
 
     public function branch()
@@ -30,6 +30,11 @@ class Employee extends Model
     public function sub_division()
     {
         return $this->belongsTo(SubDivision::class);
+    }
+
+    public function notification()
+    {
+        return $this->hasMany(Notification::class);
     }
 
     public function perizinan()
